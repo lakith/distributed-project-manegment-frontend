@@ -1,0 +1,31 @@
+.displayTogether{
+    display: inline;
+    color: brown;
+    padding: 100
+  }
+
+
+/* ::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 0px;
+  }
+  
+::-webkit-scrollbar
+  {
+    width: 8px;
+    background-color: #F5F5F5;
+  }
+  
+::-webkit-scrollbar-thumb
+  {
+    border-radius: 0px;
+    background-image: -webkit-gradient(linear,
+                       left bottom,
+                       left top,
+                       color-stop(0.44, rgb(147,112,219)),
+                       color-stop(0.72, rgb(148,0,211)),
+                       color-stop(0.86, rgb(75,0,130)));
+  } */
+  

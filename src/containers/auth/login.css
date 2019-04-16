@@ -1,0 +1,12 @@
+
+@media (max-width: 768px) {
+    .hidemobile{
+     display: none !important;
+   }
+}
+
+.inline{
+    display: inline;
+    padding-left: 2px;
+    padding-right: 2px;
+}
