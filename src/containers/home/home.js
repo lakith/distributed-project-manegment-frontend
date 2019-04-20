@@ -9,12 +9,16 @@ import {
   Card,
   Feed,
   Dropdown,
-  Table
+  Table,
+  Header,
+  List,
+  Message
 } from "semantic-ui-react";
 
 import {connect} from 'react-redux';
 import axios from '../../axios-base'
 import _ from 'lodash'
+import './home.css'
 
 class Home extends Component {
   state = { 
@@ -22,6 +26,7 @@ class Home extends Component {
       dropDownData : [],
       viewData : [],
       currentProject : null,
+      projectTasks : [],
       projectError: false,
       projectLoad: false
      };
@@ -63,7 +68,7 @@ class Home extends Component {
                     projectStartDate : data.projectStartDate,
                     projectEndDate : data.projectEndDate,
                     projectDescription : data.projectDescription,
-                    projectUserType:"admin",
+                    projectUserType:"Admin",
                     projectAdmins : [...data.projectAdmins],
                     projectTasks : [...data.projectTasks],
                     tecnologies : [...data.tecnologies],
@@ -147,12 +152,52 @@ class Home extends Component {
     let currentData = _.find(dataList, (o)=>{
       return o.projectId === value
     });
+    let modifiedTasks = [];
+    if(currentData.projectUserType !== "Admin" && currentData.projectTasks && currentData.projectTasks.length){
+      let projectTasks = [...currentData.projectTasks];
+      
+      projectTasks.map(task => {
+        let devList = [...task.taskDevList];
+        let modifiedDevList = [] ;
+        let taskData = {
+          taskName : task.taskName,
+          taskDescription : task.taskStartTime,
+          taskStartTime : task.taskEndTime,
+          taskEndTime : task.taskDescription
+        }
+        devList.map(dev => {
+          {
+            let newDev= {
+            key: dev.userId,
+            text: dev.name,
+            value: dev.userId,
+            image: { avatar: true, src: dev.profilePic },
+          }
+          modifiedDevList.push(newDev);
+          return modifiedDevList;
+        }
+        })
+        taskData.devList = modifiedDevList;
+        modifiedTasks.push(taskData)
+        return modifiedTasks;
+      })
+      
+    }
+      console.log(modifiedTasks);
+
       // if(this.state.currentProject){
       //   if(this.state.currentProject.projectId !== currentData.projectId){
+        if(currentData.projectUserType != "Admin"  &&  modifiedTasks.length){
+          this.setState({
+            currentProject : currentData,
+            projectTasks : modifiedTasks
+          })
+        } else {
           this.setState({
             currentProject : currentData
           })
           console.log(currentData);
+        }
       //   }
       // }
   }
@@ -161,6 +206,8 @@ class Home extends Component {
     const { visible } = this.state;
 
     let stateOptions = [...this.state.dropDownData];
+
+    
 
     return (
       <div>
@@ -297,7 +344,7 @@ class Home extends Component {
                                         </Table.Row>
                                         <Table.Row>
                                           <Table.Cell collapsing >
-                                            <Icon name='universal access ' style={{paddingRight:5}} />
+                                            <Icon name='universal access' style={{paddingRight:5}} />
                                             Project User Type &nbsp;&nbsp;&nbsp;&nbsp;
                                           </Table.Cell>
                                           <Table.Cell>{this.state.currentProject? this.state.currentProject.projectUserType : "Choose your Project" }</Table.Cell>
@@ -328,6 +375,69 @@ class Home extends Component {
                                 </Card.Content>
                             </Card>
                         </div>
+                         <center>
+                           <div style={{paddingTop:20,paddingBottom:20}}>
+                              <Header as='h2'>
+                                  <Icon name='settings' />
+                                  <Header.Content>
+                                    Project Tasks
+                                    <Header.Subheader>Manage your tasks</Header.Subheader>
+                                  </Header.Content>
+                                </Header>
+                              </div>
+                          </center>
+                          <Menu fluid vertical>
+                            {this.state.projectTasks.length? this.state.projectTasks.map(task => 
+                                  (
+                                    <Menu.Item 
+                                    name='promotions'
+                                  >
+                                    <List animated verticalAlign='middle'>
+                                      <List.Item>
+                                        <List.Content>
+                                          <List.Header className="displayClass" >Task Name<span style={{paddingRight:5,paddingLeft:5 }}>-</span></List.Header>
+                                          <List.Description  className="displayClass" >{task.taskName}</List.Description>
+                                        </List.Content>
+                                      </List.Item>
+                                      <List.Item>
+                                        <List.Content>
+                                          <List.Header className="displayClass" >Task Description<span style={{paddingRight:5,paddingLeft:5 }}>-</span></List.Header>
+                                          <List.Description  className="displayClass" >{task.taskDescription}</List.Description>
+                                        </List.Content>
+                                      </List.Item>
+                                      <List.Item>
+                                        <List.Content>
+                                          <List.Header className="displayClass" >Task Start Time<span style={{paddingRight:5,paddingLeft:5 }}>-</span></List.Header>
+                                          <List.Description  className="displayClass" >{task.taskStartTime}</List.Description>
+                                        </List.Content>
+                                      </List.Item>
+                                      <List.Item>
+                                        <List.Content>
+                                          <List.Header className="displayClass" >Task End Time<span style={{paddingRight:5,paddingLeft:5 }}>-</span></List.Header>
+                                          <List.Description  className="displayClass" >{task.taskEndTime}</List.Description>
+                                        </List.Content>
+                                      </List.Item>
+                                      <List.Item>
+                                        <List.Content>
+                                          <List.Header className="displayClass" >Task Dev List<span style={{paddingRight:5,paddingLeft:5 }}>-</span> {' '}</List.Header>
+                                          <List.Description  className="displayClass" >
+                                                    <Dropdown
+                                                    inline
+                                                    options={task.devList}
+                                                  />
+                                          </List.Description>
+                                        </List.Content>
+                                      </List.Item>
+                                    </List>
+                                  </Menu.Item>
+                                ) 
+                              ) : (
+                                <Message warning>
+                                <Message.Header>No Tasks To Display Yet!</Message.Header>
+                                <p>Please be alarted for tasks.</p>
+                              </Message>
+                              )}
+                          </Menu>
                       </Segment>
                       </Grid.Column>
                       <Grid.Column computer="4" tablet="16" mobile="14" >
