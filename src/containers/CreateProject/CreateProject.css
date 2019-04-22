@@ -1,0 +1,19 @@
+.inputWidth {
+    width: 100% !important;
+}
+
+.lblDisplay{
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .inputWidth{
+    width: 140% !important;
+   }
+   .lblDisplay{
+    display: none;
+}
+
+}
+
+

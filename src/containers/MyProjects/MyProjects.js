@@ -191,7 +191,8 @@ class MyProjects extends Component {
             } else {
               this.setState({
                 currentProject : currentData,
-                projectAdminsDisplay:modifiedAdmins
+                projectAdminsDisplay:modifiedAdmins,
+                projectTasks:[]
               })
               console.log(currentData);
             }
@@ -203,7 +204,7 @@ class MyProjects extends Component {
           return(
               <React.Fragment>
                    <Segment>
-                    <Dropdown onChange={this.handleChange} placeholder='State' fluid search selection options={stateOptions} />
+                    <Dropdown onChange={this.handleChange} placeholder='Manege your projects....' fluid search selection options={stateOptions} />
                     <div style={{paddingTop:20}}>
                         <Card fluid>
                         <Card.Content textAlign="center" header={this.state.currentProject? "Project - "+this.state.currentProject.projectName : "no header" } />

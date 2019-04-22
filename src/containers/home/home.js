@@ -20,6 +20,7 @@ import MyProjects from "../MyProjects/MyProjects";
 import AllProjects from "../AllProjects/AllProjects";
 import CompletedProjects from "../CompletedProjects/CompletedProjects";
 import PendingProjects from "../PendingProjects/pendingProjects";
+import CreateProject from "../CreateProject/CreateProject";
 
 class Home extends Component {
   state = { 
@@ -132,6 +133,7 @@ class Home extends Component {
                         <Route path="/projects/all-projects" component={AllProjects}/>
                         <Route path="/projects/completed-projects" component={CompletedProjects}/>
                         <Route path="/projects/pending-projects" component={PendingProjects}/>
+                        <Route path="/projects/create-projects" component={CreateProject}/>
                       </Grid.Column>
                       <Grid.Column computer="4" tablet="16" mobile="14" >
                         <Card >
