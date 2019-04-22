@@ -13,14 +13,13 @@ import React, { Component } from "react";
 import {Route} from 'react-router-dom'
 
 import {connect} from 'react-redux';
-import axios from '../../axios-base'
-import _ from 'lodash'
 import './home.css'
 import MyProjects from "../MyProjects/MyProjects";
 import AllProjects from "../AllProjects/AllProjects";
 import CompletedProjects from "../CompletedProjects/CompletedProjects";
 import PendingProjects from "../PendingProjects/pendingProjects";
 import CreateProject from "../CreateProject/CreateProject";
+import ProjectTasks from "../ProjectTasks/ProjectTasks";
 
 class Home extends Component {
   state = { 
@@ -42,11 +41,7 @@ class Home extends Component {
 
   render() {
     const { visible } = this.state;
-
-    let stateOptions = [...this.state.dropDownData];
-
-    
-
+ 
     return (
       <div>
         <Grid columns={1}>
@@ -134,6 +129,7 @@ class Home extends Component {
                         <Route path="/projects/completed-projects" component={CompletedProjects}/>
                         <Route path="/projects/pending-projects" component={PendingProjects}/>
                         <Route path="/projects/create-projects" component={CreateProject}/>
+                        <Route path="/projects/project-tasks" component={ProjectTasks} />
                       </Grid.Column>
                       <Grid.Column computer="4" tablet="16" mobile="14" >
                         <Card >

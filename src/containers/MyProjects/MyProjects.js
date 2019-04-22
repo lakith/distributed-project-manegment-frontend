@@ -59,6 +59,7 @@ class MyProjects extends Component {
     
                     myProjectsDropDown.push(newData);
                     myProjects.push(myData);
+                    return myProjects;
                 })
     
                 response.data.devProjects.map(data => {
@@ -83,6 +84,7 @@ class MyProjects extends Component {
     
                     myProjectsDropDown.push(newData);
                     myProjects.push(myData);
+                    return myProjects;
                 })
     
                 response.data.devAdminProjects.map(data => {
@@ -117,6 +119,7 @@ class MyProjects extends Component {
                         projectLoad:false,
                         projectError:false
                     })
+                    return myProjects;
                 })
     
     
